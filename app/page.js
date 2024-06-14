@@ -77,12 +77,12 @@ export default function Home() {
 
   return (
     <div className="max-w-2xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">GHQ-12 Test</h1>
+      <h1 className="text-2xl font-bold mb-4 text-center">GHQ-12 Test</h1>
       <form onSubmit={handleSubmit}>
         {questions.map((question, index) => (
           <div key={index} className="mb-6">
             <label className="block text-lg mb-2">{index + 1}. {question}</label>
-            <div className="ml-6">
+            <div className="ml-2 sm:ml-6">
               {options.map((option, optIndex) => (
                 <label key={optIndex} className="block mb-2">
                   <input
@@ -99,8 +99,8 @@ export default function Home() {
             </div>
           </div>
         ))}
-        <div className="flex items-center">
-          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded mr-2">
+        <div className="flex flex-col sm:flex-row sm:items-center">
+          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded mr-2 mb-2 sm:mb-0">
             Submit
           </button>
           <button
