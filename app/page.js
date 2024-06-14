@@ -71,12 +71,6 @@ export default function Home() {
         >
           Take the test again
         </button>
-        <button
-          className="bg-gray-500 text-white px-4 py-2 rounded"
-          onClick={handleReset}
-        >
-          Reset
-        </button>
       </div>
     );
   }
