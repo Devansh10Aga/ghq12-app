@@ -4,23 +4,31 @@ import { useState } from 'react';
 const questions = [
   "Have you recently been able to concentrate on whatever you're doing?",
   "Have you recently lost much sleep over worry?",
-  "Have you recently felt that you are playing a useful part in things?",
+  "Have you recently felt that you were playing a useful part in things?",
   "Have you recently felt capable of making decisions about things?",
   "Have you recently felt constantly under strain?",
   "Have you recently felt you couldn't overcome your difficulties?",
   "Have you recently been able to enjoy your normal day-to-day activities?",
   "Have you recently been able to face up to problems?",
-  "Have you recently been feeling unhappy and depressed?",
+  "Have you recently been feeling unhappy or depressed?",
   "Have you recently been losing confidence in yourself?",
   "Have you recently been thinking of yourself as a worthless person?",
   "Have you recently been feeling reasonably happy, all things considered?"
 ];
 
 const options = [
-  "Not at all",
-  "No more than usual",
-  "Rather more than usual",
-  "Much more than usual"
+  ["Better than usual", "Same as usual", "Less than usual", "Much less than usual"],
+  ["Not at all", "No more than usual", "Rather more than usual", "Much more than usual"],
+  ["More so than usual", "Same as usual", "Less so than usual", "Much less than usual"],
+  ["More so than usual", "Same as usual", "Less so than usual", "Much less capable"],
+  ["Not at all", "No more than usual", "Rather more than usual", "Much more than usual"],
+  ["Not at all", "No more than usual", "Rather more than usual", "Much more than usual"],
+  ["More so than usual", "Same as usual", "Less so than usual", "Much less than usual"],
+  ["More so than usual", "Same as usual", "Less able than usual", "Much less able"],
+  ["Not at all", "No more than usual", "Rather more than usual", "Much more than usual"],
+  ["Not at all", "No more than usual", "Rather more than usual", "Much more than usual"],
+  ["Not at all", "No more than usual", "Rather more than usual", "Much more than usual"],
+  ["More so than usual", "About the same as usual", "Less so than usual", "Much less than usual"]
 ];
 
 export default function Home() {
@@ -83,7 +91,7 @@ export default function Home() {
           <div key={index} className="mb-6">
             <label className="block text-lg mb-2">{index + 1}. {question}</label>
             <div className="ml-2 sm:ml-6">
-              {options.map((option, optIndex) => (
+              {options[index].map((option, optIndex) => (
                 <label key={optIndex} className="block mb-2">
                   <input
                     type="radio"
