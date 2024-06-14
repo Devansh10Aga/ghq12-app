@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState } from 'react';
 
 const questions = [
@@ -52,6 +52,11 @@ export default function Home() {
     setResponses(Array(12).fill(null));
     setSubmitted(false);
     setResult({ score: 0, interpretation: '' });
+
+    // Clear the radio buttons
+    document.querySelectorAll('input[type=radio]').forEach((radio) => {
+      radio.checked = false;
+    });
   };
 
   if (submitted) {
