@@ -48,33 +48,51 @@ export default function Home() {
     setSubmitted(true);
   };
 
+  const handleReset = () => {
+    setResponses(Array(12).fill(null));
+    setSubmitted(false);
+    setResult({ score: 0, interpretation: '' });
+  };
+
   if (submitted) {
     return (
-      <div>
-        <h1>Your GHQ-12 Test Result</h1>
-        <p>Your total score is: {result.score}</p>
-        <p>Interpretation: {result.interpretation}</p>
-        <button onClick={() => setSubmitted(false)}>Take the test again</button>
+      <div className="max-w-2xl mx-auto p-6">
+        <h1 className="text-2xl font-bold mb-4">Your GHQ-12 Test Result</h1>
+        <p className="mb-2">Your total score is: {result.score}</p>
+        <p className="mb-4">Interpretation: {result.interpretation}</p>
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+          onClick={() => setSubmitted(false)}
+        >
+          Take the test again
+        </button>
+        <button
+          className="bg-gray-500 text-white px-4 py-2 rounded"
+          onClick={handleReset}
+        >
+          Reset
+        </button>
       </div>
     );
   }
 
   return (
-    <div>
-      <h1>GHQ-12 Test</h1>
+    <div className="max-w-2xl mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-4">GHQ-12 Test</h1>
       <form onSubmit={handleSubmit}>
         {questions.map((question, index) => (
-          <div key={index} className="question" style={{ marginBottom: '20px' }}>
-            <label>{index + 1}. {question}</label>
-            <div className="options" style={{ marginLeft: '20px' }}>
+          <div key={index} className="mb-6">
+            <label className="block text-lg mb-2">{index + 1}. {question}</label>
+            <div className="ml-6">
               {options.map((option, optIndex) => (
-                <label key={optIndex} style={{ display: 'block', marginBottom: '5px' }}>
+                <label key={optIndex} className="block mb-2">
                   <input
                     type="radio"
                     name={`response${index}`}
                     value={optIndex}
                     required
                     onChange={() => handleOptionChange(index, optIndex)}
+                    className="mr-2"
                   />
                   {option}
                 </label>
@@ -82,7 +100,18 @@ export default function Home() {
             </div>
           </div>
         ))}
-        <button type="submit">Submit</button>
+        <div className="flex items-center">
+          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded mr-2">
+            Submit
+          </button>
+          <button
+            type="button"
+            className="bg-gray-500 text-white px-4 py-2 rounded"
+            onClick={handleReset}
+          >
+            Reset
+          </button>
+        </div>
       </form>
     </div>
   );
