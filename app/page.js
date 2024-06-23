@@ -1,5 +1,6 @@
 "use client";
 import { useState } from 'react';
+import { useUser } from '@clerk/nextjs';
 
 const questions = [
   "Have you recently been able to concentrate on whatever you're doing?",
@@ -32,9 +33,10 @@ const options = [
 ];
 
 export default function Home() {
+  const {user} = useUser();
   const [responses, setResponses] = useState(Array(12).fill(null));
   const [submitted, setSubmitted] = useState(false);
-  const [result, setResult] = useState({ score: 0, interpretation: '' });
+  const [result, setResult] = useState({ score: 0, interpretation: '', previousResults: [] });
 
   const handleOptionChange = (index, value) => {
     const newResponses = [...responses];
@@ -49,7 +51,7 @@ export default function Home() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ responses }),
+      body: JSON.stringify({ responses, id: user.id }), // Replace with actual user ID
     });
     const data = await response.json();
     setResult(data);
@@ -59,7 +61,7 @@ export default function Home() {
   const handleReset = () => {
     setResponses(Array(12).fill(null));
     setSubmitted(false);
-    setResult({ score: 0, interpretation: '' });
+    setResult({ score: 0, interpretation: '', previousResults: [] });
 
     // Clear the radio buttons
     document.querySelectorAll('input[type=radio]').forEach((radio) => {
@@ -79,6 +81,27 @@ export default function Home() {
         >
           Take the test again
         </button>
+        <button
+          className="bg-gray-500 text-white px-4 py-2 rounded"
+          onClick={handleReset}
+        >
+          Reset
+        </button>
+
+        {result.previousResults.length > 0 && (
+          <div className="mt-6">
+            <h2 className="text-xl font-bold mb-4">Previous Test Results</h2>
+            <ul>
+              {result.previousResults.map((res, index) => (
+                <li key={index} className="mb-2">
+                  <p>Date: {new Date(res.date).toLocaleDateString()}</p>
+                  <p>Score: {res.score}</p>
+                  <p>Interpretation: {res.interpretation}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     );
   }
