@@ -1,6 +1,7 @@
 "use client";
 import { useState } from 'react';
 import { useUser } from '@clerk/nextjs';
+import Chart from '@/components/lineChart';
 
 const questions = [
   "Have you recently been able to concentrate on whatever you're doing?",
@@ -87,6 +88,8 @@ export default function Home() {
         >
           Reset
         </button>
+
+        <Chart/>
 
         {result.previousResults.length > 0 && (
           <div className="mt-6">
