@@ -6,47 +6,29 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 import { ResponsiveLine } from "@nivo/line"
 
-export default function Chart() {
+export default function Chart({data}) {
+  const chartdata = data.map((res, index)=>{return{
+    x: index,
+    y: res.score,
+    date : new Date(res.date).toLocaleDateString(),
+    interpretation : res.interpretation
+  }}).reverse()
+  console.log(chartdata)
   return (
     <Card className="h-full w-full max-w-2xl">
       <CardHeader>
-        <CardTitle>Line Chart</CardTitle>
-        <CardDescription>A line chart showing total page views for the last 6 months.</CardDescription>
+        <CardTitle>GHQ-12 Chart</CardTitle>
+        <CardDescription>A line chart shows previous scores according to their date.</CardDescription>
       </CardHeader>
       <CardContent>
-        <LineChart className="aspect-[9/4]" />
-      </CardContent>
-    </Card>
-  )
-}
-
-function LineChart(props) {
-  return (
-    <div {...props}>
+        <div className="aspect-[9/4]">
+          
       <ResponsiveLine
         data={[
           {
             id: "Desktop",
-            data: [
-              { x: "Jan", y: 43 },
-              { x: "Feb", y: 137 },
-              { x: "Mar", y: 61 },
-              { x: "Apr", y: 145 },
-              { x: "May", y: 26 },
-              { x: "Jun", y: 154 },
-            ],
-          },
-          {
-            id: "Mobile",
-            data: [
-              { x: "Jan", y: 60 },
-              { x: "Feb", y: 48 },
-              { x: "Mar", y: 177 },
-              { x: "Apr", y: 78 },
-              { x: "May", y: 96 },
-              { x: "Jun", y: 204 },
-            ],
-          },
+            data: chartdata
+          }
         ]}
         margin={{ top: 10, right: 10, bottom: 40, left: 40 }}
         xScale={{
@@ -66,7 +48,7 @@ function LineChart(props) {
           tickValues: 5,
           tickPadding: 16,
         }}
-        colors={["#2563eb", "#e11d48"]}
+        colors={["#Ff0000"]}
         pointSize={6}
         useMesh={true}
         gridYValues={6}
@@ -88,7 +70,9 @@ function LineChart(props) {
           },
         }}
         role="application"
-      />
-    </div>
+        />
+</div>
+      </CardContent>
+    </Card>
   )
 }

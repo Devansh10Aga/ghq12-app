@@ -89,7 +89,7 @@ export default function Home() {
           Reset
         </button>
 
-        <Chart/>
+        <Chart data={result.previousResults}/>
 
         {result.previousResults.length > 0 && (
           <div className="mt-6">
